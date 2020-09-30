@@ -17,7 +17,7 @@ Creation Date: 2018-02-20
 
 """
 
-
+from __future__ import print_function
 import argparse
 import time
 import numpy

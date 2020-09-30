@@ -21,7 +21,7 @@ read_hdr_file written by Ben Taylor
 # licence is available to download with this file.
 ###########################################################
 
-
+from __future__ import print_function
 import argparse
 import csv
 import os
@@ -122,63 +122,63 @@ if __name__ == "__main__":
         header_dict = envi_header.read_hdr_file(each_hdr)
 
         # Get supplimentary info for csv if available
-        if 'acquisition date' in list(header_dict.keys()):
+        if 'acquisition date' in header_dict.keys():
             dates.append(header_dict['acquisition date'].split(' ')[-1])
         else:
             dates.append(float('nan'))
-        if 'gps start time' in list(header_dict.keys()):
+        if 'gps start time' in header_dict.keys():
             start_times.append(header_dict['gps start time'].split(' ')[-1])
         else:
             start_times.append(float('nan'))
-        if 'gps stop time' in list(header_dict.keys()):
+        if 'gps stop time' in header_dict.keys():
             stop_times.append(header_dict['gps stop time'].split(' ')[-1])
         else:
             stop_times.append(float('nan'))
-        if "bands" in list(header_dict.keys()):
+        if "bands" in header_dict.keys():
             nbands.append(int(header_dict['bands']))
         else:
             nbands.append(float('nan'))
-        if "samples" in list(header_dict.keys()):
+        if "samples" in header_dict.keys():
             nsamples.append(int(header_dict['samples']))
         else:
             nsamples.append(float('nan'))
-        if "lines" in list(header_dict.keys()):
+        if "lines" in header_dict.keys():
             nlines.append(int(header_dict['lines']))
         else:
             nlines.append(float('nan'))
-        if "fps" in list(header_dict.keys()):
+        if "fps" in header_dict.keys():
             fps.append(float(header_dict['fps']))
         else:
             fps.append(float('nan'))
-        if "tint" in list(header_dict.keys()):
+        if "tint" in header_dict.keys():
             tint.append(float(header_dict['tint']))
         else:
             tint.append(float('nan'))
-        if "tint1" in list(header_dict.keys()):
+        if "tint1" in header_dict.keys():
             tint1.append(float(header_dict['tint1']))
-        elif "tint_vnir" in list(header_dict.keys()):
+        elif "tint_vnir" in header_dict.keys():
             tint1.append(float(header_dict['tint_vnir']))
         else:
             tint1.append(float('nan'))
-        if "tint2" in list(header_dict.keys()):
+        if "tint2" in header_dict.keys():
             tint2.append(float(header_dict['tint2']))
-        elif "tint_swir" in list(header_dict.keys()):
+        elif "tint_swir" in header_dict.keys():
             tint2.append(float(header_dict['tint_swir']))
         else:
             tint2.append(float('nan'))
-        if "binning" in list(header_dict.keys()):
+        if "binning" in header_dict.keys():
             binning.append(int(header_dict['binning'][0]))
-        elif "binning_vnir" in list(header_dict.keys()):
+        elif "binning_vnir" in header_dict.keys():
             binning.append(int(header_dict['binning_vnir'][0]))
         else:
             binning.append(float('nan'))
-        if "binning2" in list(header_dict.keys()):
+        if "binning2" in header_dict.keys():
             binning2.append(int(header_dict['binning2'][0]))
-        elif "binning_swir" in list(header_dict.keys()):
+        elif "binning_swir" in header_dict.keys():
             binning2.append(int(header_dict['binning_swir'][0]))
         else:
             binning2.append(float('nan'))
-        if "temperature" in list(header_dict.keys()):
+        if "temperature" in header_dict.keys():
         # won't be in dark frame files
             temp.append(float(header_dict['temperature'].split(',')[0]))
         else:
@@ -195,7 +195,7 @@ if __name__ == "__main__":
              }
 
     #Loop for plotting each item from the dicttoplot
-    for item in list(dicttoplot.keys()):
+    for item in dicttoplot.keys():
         if item in args.values or 'all' in args.values:
             ylims = []
             for each in dicttoplot[item]:
@@ -223,7 +223,7 @@ if __name__ == "__main__":
     if args.outcsv is not None:
 
         # first check all files have same records
-        for item in list(dicttoplot.keys()):
+        for item in dicttoplot.keys():
             for each in dicttoplot[item]:
                 if np.nansum(dicttoplot[item][each])>0:
                     if len(dicttoplot[item][each]) != len(nbands):

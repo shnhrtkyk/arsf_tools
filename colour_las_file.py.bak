@@ -30,7 +30,7 @@ Creation Date: 07/12/2015
 # licence is available to download with this file.
 ###########################################################
 
-
+from __future__ import print_function
 import argparse
 import copy
 import sys
@@ -62,7 +62,7 @@ def get_bands_from_wavelengths(input_image, wavelengths=DEFAULT_WAVELENGTHS):
 
     out_bands = []
     for wavelength in wavelengths:
-        band = min(list(range(len(image_wavelengths))),
+        band = min(range(len(image_wavelengths)),
                    key=lambda x:abs(float(image_wavelengths[x])-wavelength))
         out_bands.append(band)
 

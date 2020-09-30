@@ -11,7 +11,7 @@
 #This is provided as is and there is no warranty or guarantee it works
 #The python numpy library is required to run
 
-
+from __future__ import print_function
 import argparse
 import numpy
 import sys

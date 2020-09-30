@@ -16,7 +16,7 @@ read_hdr_file written by Ben Taylor
 # licence is available to download with this file.
 ###########################################################
 
-
+from __future__ import print_function
 import argparse
 import csv
 import os
@@ -51,7 +51,7 @@ if __name__ == "__main__":
     nbands =  int(header_dict['bands'])
 
     print('The header contains the following information:\n')
-    for item in list(header_dict.keys()):
+    for item in header_dict.keys():
         # Check if there are the same number of items as bands, if so don't print
         # them out, just the number of values
         if nbands != 1 and header_dict[item].count(',') >= nbands - 1:
@@ -71,12 +71,12 @@ if __name__ == "__main__":
                 # For first line write header
                 if i == 0:
                     header_row = ['Band']
-                    header_row.extend(list(band_info_dict.keys()))
+                    header_row.extend(band_info_dict.keys())
                     out_file.writerow(header_row)
 
                 out_line = [str(i+1)]
-                for item in list(band_info_dict.keys()):
+                for item in band_info_dict.keys():
                     out_line.append(band_info_dict[item][i])
                 out_file.writerow(out_line)
         print('\nWrote the following to {}:'.format(args.outcsv))
-        print('\n'.join(list(band_info_dict.keys())))
+        print('\n'.join(band_info_dict.keys()))

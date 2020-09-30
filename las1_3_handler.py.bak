@@ -100,8 +100,8 @@ def readLASHeader(filename):
     # Check given file exists
 
     if (not os.path.isfile(filename)):
-        print("\nFile " + filename + " does not exist")
-        print("Please check your file location and try again \n")
+        print "\nFile " + filename + " does not exist"
+        print "Please check your file location and try again \n"
         sys.exit(1)
     #end if
 
@@ -109,8 +109,8 @@ def readLASHeader(filename):
     basename, extension = os.path.splitext(filename)
 
     if extension != ".LAS":
-        print("\nFile " + filename + " is not a *.LAS file")
-        print("Please specify a LAS file on the command line\n")
+        print "\nFile " + filename + " is not a *.LAS file"
+        print "Please specify a LAS file on the command line\n"
         sys.exit(1)
     #end if
 
@@ -118,8 +118,8 @@ def readLASHeader(filename):
     try:
         lasfile = open(filename, "rb")
     except IOError:
-        print("\nCould not open LAS file " + filename)
-        print("Please check your file permissions and try again\n")
+        print "\nCould not open LAS file " + filename
+        print "Please check your file permissions and try again\n"
         sys.exit(1)
     #end try
 
@@ -128,7 +128,7 @@ def readLASHeader(filename):
         record = lasfile.read(public_header_length)
     except:
         tb = sys.exc_info()[2]
-        print("\nReading failed on input LAS file " + filename)
+        print "\nReading failed on input LAS file " + filename
         sys.exit(1)
     #end try
 
@@ -141,8 +141,8 @@ def readLASHeader(filename):
     version=str(headdata[7])+'.'+str(+headdata[8])
 
     if version != '1.3':
-        print("\nSpecified file is a LAS %s.%s file, not a LAS 1.3 file" % (headdata[7], headdata[8]))
-        print("Please check your file and try again \n")
+        print "\nSpecified file is a LAS %s.%s file, not a LAS 1.3 file" % (headdata[7], headdata[8])
+        print "Please check your file and try again \n"
         sys.exit(1)
     #end if
 
@@ -162,40 +162,40 @@ def readLASHeader(filename):
 
 def printLASHeader(headdata,filename):
 
-    print("\nHeader file of " , filename)
-    print("File Signature (“LASF”) ", headdata[0])
-    print("File Source ID  ", headdata[1])
-    print("Global Encoding ", headdata[2])
-    print("Project ID - GUID data 1 ", headdata[3])
-    print("Project ID - GUID data 2 ", headdata[4])
-    print("Project ID - GUID data 3 ", headdata[5])
-    print("Project ID - GUID data 4 ", headdata[6])
-    print("Version Major %c" % headdata[7])
-    print("Version Minor ", headdata[8])
-    print("System Identifier ", headdata[9])
-    print("Generating Software ", headdata[10])
-    print("File Creation Day of Year  ", headdata[11])
-    print("File Creation Year ", headdata[12])
-    print("Header Size    ", headdata[13])
-    print("Offset to point data ", headdata[14])
-    print("Number of Variable Length Records ", headdata[15])
-    print("Point Data Format ID (0-99 for spec) ", headdata[16])
-    print("Point Data Record Length ", headdata[17])
-    print("Number of point records ", headdata[18])
-    print("Number of points by return  ", headdata[19:23])
-    print("X scale factor ", headdata[24])
-    print("Y scale factor  ", headdata[25])
-    print("Z scale factor ", headdata[26])
-    print("X offset  ", headdata[27])
-    print("Y offset  ", headdata[28])
-    print("Z offset ", headdata[29])
-    print("Max X  ", headdata[30])
-    print("Min X  ", headdata[31])
-    print("Max Y  ", headdata[32])
-    print("Min Y ", headdata[33])
-    print("Max Z  ", headdata[34])
-    print("Min Z  ", headdata[35])
-    print("Start of Waveform Data Packet Record ", headdata[36] , "\n")
+    print "\nHeader file of " , filename
+    print "File Signature (“LASF”) ", headdata[0]
+    print "File Source ID  ", headdata[1]
+    print "Global Encoding ", headdata[2]
+    print "Project ID - GUID data 1 ", headdata[3]
+    print "Project ID - GUID data 2 ", headdata[4]
+    print "Project ID - GUID data 3 ", headdata[5]
+    print "Project ID - GUID data 4 ", headdata[6]
+    print "Version Major %c" % headdata[7]
+    print "Version Minor ", headdata[8]
+    print "System Identifier ", headdata[9]
+    print "Generating Software ", headdata[10]
+    print "File Creation Day of Year  ", headdata[11]
+    print "File Creation Year ", headdata[12]
+    print "Header Size    ", headdata[13]
+    print "Offset to point data ", headdata[14]
+    print "Number of Variable Length Records ", headdata[15]
+    print "Point Data Format ID (0-99 for spec) ", headdata[16]
+    print "Point Data Record Length ", headdata[17]
+    print "Number of point records ", headdata[18]
+    print "Number of points by return  ", headdata[19:23]
+    print "X scale factor ", headdata[24]
+    print "Y scale factor  ", headdata[25]
+    print "Z scale factor ", headdata[26]
+    print "X offset  ", headdata[27]
+    print "Y offset  ", headdata[28]
+    print "Z offset ", headdata[29]
+    print "Max X  ", headdata[30]
+    print "Min X  ", headdata[31]
+    print "Max Y  ", headdata[32]
+    print "Min Y ", headdata[33]
+    print "Max Z  ", headdata[34]
+    print "Min Z  ", headdata[35]
+    print "Start of Waveform Data Packet Record ", headdata[36] , "\n"
 
 #end function
 
@@ -225,36 +225,36 @@ def writeWaveform(wavedata,wv_info,output_dir):
         w_point[i]=wavedata[0][i]*point_scale_factors[i]+point_offsets[i]
     #end for
 
-    print("Point {0:31} {1} {2} {3}".format("", wavedata[0][0]*point_scale_factors[0], wavedata[0][1]*point_scale_factors[1], wavedata[0][2]*point_scale_factors[2]), file=wvfile)
-    print("Return Number {0:23} {1}".format("", int(wavedata[0][4]&7)), file=wvfile)
-    print("Number of returns for this pulse {0:4} {1}".format("", int((wavedata[0][4]& 56)/8)), file=wvfile)
-    print("Time {0:32} {1}".format("", wavedata[0][10]), file=wvfile)
-    print("Scan Angle {0:26} {1}".format("", wavedata[0][6]), file=wvfile)
-    print("Classification {0:22} {1}".format("", wavedata[0][5]), file=wvfile)
-    print("Temporal Sample Spacing  {0:12} {1}".format("", sampling), file=wvfile)
+    print >>wvfile, "Point {0:31} {1} {2} {3}".format("", wavedata[0][0]*point_scale_factors[0], wavedata[0][1]*point_scale_factors[1], wavedata[0][2]*point_scale_factors[2])
+    print >>wvfile, "Return Number {0:23} {1}".format("", int(wavedata[0][4]&7))
+    print >>wvfile, "Number of returns for this pulse {0:4} {1}".format("", int((wavedata[0][4]& 56)/8))
+    print >>wvfile, "Time {0:32} {1}".format("", wavedata[0][10])
+    print >>wvfile, "Scan Angle {0:26} {1}".format("", wavedata[0][6])
+    print >>wvfile, "Classification {0:22} {1}".format("", wavedata[0][5])
+    print >>wvfile,"Temporal Sample Spacing  {0:12} {1}".format("", sampling)
     #Temporal Sample Spacing(sample rate Ms): 1000 = 1 nanosecond, 500 = 2 nanoseconds
-    print("AGC gain {0:28} {1}".format("", wavedata[0][8]), file=wvfile)
-    print("Digitiser Gain {0:22} {1}".format("",wv_info[4]), file=wvfile)
-    print("Digitiser Offset {0:20} {1}".format("", wv_info[5]), file=wvfile) # Digitizer offset (seems to be always 0)
+    print >>wvfile, "AGC gain {0:28} {1}".format("", wavedata[0][8])
+    print >>wvfile,"Digitiser Gain {0:22} {1}".format("",wv_info[4])
+    print >>wvfile,"Digitiser Offset {0:20} {1}".format("", wv_info[5]) # Digitizer offset (seems to be always 0)
 
-    print("No. of Samples {0:22} {1}".format("", wavedata[0][13]), file=wvfile)
-    print("Sample Length {0:23} {1}".format("", sample_length), file=wvfile)
-    print("Return Point Location {0:15} {1}".format("", wavedata[0][14]/1000), file=wvfile)
+    print >>wvfile, "No. of Samples {0:22} {1}".format("", wavedata[0][13])
+    print >>wvfile, "Sample Length {0:23} {1}".format("", sample_length)
+    print >>wvfile, "Return Point Location {0:15} {1}".format("", wavedata[0][14]/1000)
     # offset in nanooseconds from the first digitized value to the location within the waveform packet that the associated return
     # pulse was detected
 
-    print("Point in Waveform {0:19} {1}".format("", wavedata[0][14]*light_speed/2/1000), file=wvfile) #/1000 to convert from pico to nanoseconds
+    print >>wvfile, "Point in Waveform {0:19} {1}".format("", wavedata[0][14]*light_speed/2/1000) #/1000 to convert from pico to nanoseconds
 
 
-    print("X Offset {0:28} {1}".format("", wavedata[0][15]*1000*sampling), file=wvfile) # *1000 to convert from km to meters *sampling to get offset between each sample
-    print("Y Offset {0:28} {1}".format("", wavedata[0][16]*1000*sampling), file=wvfile) # *1000 to convert from km to meters *sampling to get offset between each sample
-    print("Z Offset {0:28} {1}".format("", wavedata[0][17]*1000*sampling), file=wvfile) # *1000 to convert from km to meters *sampling to get offset between each sample
+    print >>wvfile, "X Offset {0:28} {1}".format("", wavedata[0][15]*1000*sampling) # *1000 to convert from km to meters *sampling to get offset between each sample
+    print >>wvfile, "Y Offset {0:28} {1}".format("", wavedata[0][16]*1000*sampling) # *1000 to convert from km to meters *sampling to get offset between each sample
+    print >>wvfile, "Z Offset {0:28} {1}".format("", wavedata[0][17]*1000*sampling) # *1000 to convert from km to meters *sampling to get offset between each sample
 
     #output a warning if the z offset is -ve. This is not necessarily a problem but it could mean that the vector has been
     #stored in the LAS file incorrectly (opposite signs to standard) as was the case with some LAS files produced with an early version of ALSPP
     if wavedata[0][17] > 0:
-        print("WARNING: Z offset vector component is positive - this may mean that the vector has been stored in the LAS file with opposite sign to standard.")
-        print("If this is the case then waveform and origin positions will be incorrect. If you expect Z to increase from the lidar to the target then this is probably not a problem.")
+        print "WARNING: Z offset vector component is positive - this may mean that the vector has been stored in the LAS file with opposite sign to standard."
+        print "If this is the case then waveform and origin positions will be incorrect. If you expect Z to increase from the lidar to the target then this is probably not a problem."
 
     # Calculating origin from: X=xo+x(t)
     xo= w_point[0]- wavedata[0][15]*wavedata[0][14]
@@ -263,10 +263,10 @@ def writeWaveform(wavedata,wv_info,output_dir):
     #print >>wvfile, "Xo\t", xo
     #print >>wvfile, "Yo\t", yo
     #print >>wvfile, "Zo\t",  zo
-    print("Intensity  X  Y  Z", file=wvfile)
+    print >>wvfile, "Intensity  X  Y  Z"
 
     for i in range(len(wavedata[1])):
-        print(wavedata[1][i],round(xo,4),round(yo,4),round(zo,4), file=wvfile)
+        print >>wvfile, wavedata[1][i],round(xo,4),round(yo,4),round(zo,4)
         xo+=(wavedata[0][15]*sampling*1000)
         yo+=(wavedata[0][16]*sampling*1000)
         zo+=(wavedata[0][17]*sampling*1000)
@@ -297,144 +297,144 @@ def getUserInput(headdata):
     attempt=0
 
         #Read user limits
-    print("Enter limits of the area to extract:")
+    print "Enter limits of the area to extract:"
     try:
-        max_north = float(input("Enter Max North (Range %f-%f)"%(Min_y,Max_y)))
+        max_north = float(raw_input("Enter Max North (Range %f-%f)"%(Min_y,Max_y)))
     except:
-        print("Invalid value entered")
+        print "Invalid value entered"
         try :
-            max_north = float(input("Enter Max North (Range %f-%f)"%(Min_y,Max_y)))
+            max_north = float(raw_input("Enter Max North (Range %f-%f)"%(Min_y,Max_y)))
         except:
-            print("Invalid value entered")
-            print("Please check your data and try again\n")
+            print "Invalid value entered"
+            print "Please check your data and try again\n"
             sys.exit(1)
 
     while max_north > Max_y or max_north < Min_y:
         if attempt >= 2:
-            print()
-            print("Specified max y value is not valid")
-            print("Please check your data and try again\n")
+            print
+            print "Specified max y value is not valid"
+            print "Please check your data and try again\n"
             sys.exit(1)
         else :
-            print()
-            print("Max north must be between " , Min_y, "and ", Max_y)
-            print()
+            print
+            print "Max north must be between " , Min_y, "and ", Max_y
+            print
             try:
-                max_north = float(input("Enter Max North (Range %f-%f)"%(Min_y,Max_y)))
+                max_north = float(raw_input("Enter Max North (Range %f-%f)"%(Min_y,Max_y)))
             except:
-                print("Invalid value entered")
+                print "Invalid value entered"
                 try :
-                    max_north = float(input("Enter Max North (Range %f-%f)"%(Min_y,Max_y)))
+                    max_north = float(raw_input("Enter Max North (Range %f-%f)"%(Min_y,Max_y)))
                 except:
-                    print("Invalid value entered")
-                    print("Please check your data and try again\n")
+                    print "Invalid value entered"
+                    print "Please check your data and try again\n"
                     sys.exit(1)
             attempt+=1
         #end if
 
     try:
-        min_north = float(input("Enter Min North (Range %f-%f)"%(Min_y,max_north)))
+        min_north = float(raw_input("Enter Min North (Range %f-%f)"%(Min_y,max_north)))
     except:
-        print("Invalid value entered")
+        print "Invalid value entered"
         try :
-            min_north = float(input("Enter Min North (Range %f-%f)"%(Min_y,max_north)))
+            min_north = float(raw_input("Enter Min North (Range %f-%f)"%(Min_y,max_north)))
         except:
-            print("Invalid value entered")
-            print("Please check your data and try again\n")
+            print "Invalid value entered"
+            print "Please check your data and try again\n"
             sys.exit(1)
 
 
     while min_north > max_north or min_north < Min_y:
         if attempt >= 2:
-            print()
-            print("Specified min y value is not valid")
-            print("Please check your data and try again\n")
+            print
+            print "Specified min y value is not valid"
+            print "Please check your data and try again\n"
             sys.exit(1)
         else :
-            print()
-            print("Min north must be between " , Min_y, "and ", max_north)
-            print()
+            print
+            print "Min north must be between " , Min_y, "and ", max_north
+            print
             try:
-                min_north = float(input("Enter Min North (Range %f-%f)"%(Min_y,max_north)))
+                min_north = float(raw_input("Enter Min North (Range %f-%f)"%(Min_y,max_north)))
             except:
-                print("Invalid value entered")
+                print "Invalid value entered"
                 try :
-                    min_north = float(input("Enter Min North (Range %f-%f)"%(Min_y,max_north)))
+                    min_north = float(raw_input("Enter Min North (Range %f-%f)"%(Min_y,max_north)))
                 except:
-                    print("Invalid value entered")
-                    print("Please check your data and try again\n")
+                    print "Invalid value entered"
+                    print "Please check your data and try again\n"
                     sys.exit(1)
             attempt+=1
         #end if
 
 
     try:
-        max_east = float(input("Enter Max East (Range %f-%f)"%(Min_x,Max_x)))
+        max_east = float(raw_input("Enter Max East (Range %f-%f)"%(Min_x,Max_x)))
     except:
-        print("Invalid value entered")
+        print "Invalid value entered"
         try :
-            max_east = float(input("Enter Max East (Range %f-%f)"%(Min_x,Max_x)))
+            max_east = float(raw_input("Enter Max East (Range %f-%f)"%(Min_x,Max_x)))
         except:
-            print("Invalid value entered")
-            print("Please check your data and try again\n")
+            print "Invalid value entered"
+            print "Please check your data and try again\n"
             sys.exit(1)
 
 
 
     while max_east > Max_x or max_east < Min_x:
         if attempt >= 2:
-            print()
-            print("Specified max x value is not valid")
-            print("Please check your data and try again\n")
+            print
+            print "Specified max x value is not valid"
+            print "Please check your data and try again\n"
             sys.exit(1)
         else :
-            print()
-            print("Max east must be between " , Min_x, "and ", Max_x)
-            print()
+            print
+            print "Max east must be between " , Min_x, "and ", Max_x
+            print
             try:
-                max_east = float(input("Enter Max East (Range %f-%f)"%(Min_x,Max_x)))
+                max_east = float(raw_input("Enter Max East (Range %f-%f)"%(Min_x,Max_x)))
             except:
-                print("Invalid value entered")
+                print "Invalid value entered"
                 try :
-                    max_east = float(input("Enter Max East (Range %f-%f)"%(Min_x,Max_x)))
+                    max_east = float(raw_input("Enter Max East (Range %f-%f)"%(Min_x,Max_x)))
                 except:
-                    print("Invalid value entered")
-                    print("Please check your data and try again\n")
+                    print "Invalid value entered"
+                    print "Please check your data and try again\n"
                     sys.exit(1)
             attempt+=1
         #end if
 
 
     try:
-        min_east = float(input("Enter Min East (Range %f-%f)"%(Min_x,max_east)))
+        min_east = float(raw_input("Enter Min East (Range %f-%f)"%(Min_x,max_east)))
     except:
-        print("Invalid value entered")
+        print "Invalid value entered"
         try :
-            min_east = float(input("Enter Min East (Range %f-%f)"%(Min_x,max_east)))
+            min_east = float(raw_input("Enter Min East (Range %f-%f)"%(Min_x,max_east)))
         except:
-            print("Invalid value entered")
-            print("Please check your data and try again\n")
+            print "Invalid value entered"
+            print "Please check your data and try again\n"
             sys.exit(1)
 
     while min_east > max_east or min_east < Min_x:
         if attempt >= 2:
-            print()
-            print("Specified min x value is not valid")
-            print("Please check your data and try again")
+            print
+            print "Specified min x value is not valid"
+            print "Please check your data and try again"
             sys.exit(1)
         else :
-            print()
-            print("Min east must be between " , Min_x, "and ", max_east)
-            print()
+            print
+            print "Min east must be between " , Min_x, "and ", max_east
+            print
             try:
-                min_east = float(input("Enter Min East (Range %f-%f)"%(Min_x,max_east)))
+                min_east = float(raw_input("Enter Min East (Range %f-%f)"%(Min_x,max_east)))
             except:
-                print("Invalid value entered")
+                print "Invalid value entered"
                 try :
-                    min_east = float(input("Enter Min East (Range %f-%f)"%(Min_x,max_east)))
+                    min_east = float(raw_input("Enter Min East (Range %f-%f)"%(Min_x,max_east)))
                 except:
-                    print("Invalid value entered")
-                    print("Please check your data and try again\n")
+                    print "Invalid value entered"
+                    print "Please check your data and try again\n"
                     sys.exit(1)
             attempt+=1
         #end if
@@ -472,8 +472,8 @@ def readLASWaves(headdata,filename,output_dir,user_limits,plottoscreen=False,plo
         test=output_dir+"temp_file.txt"
         try_file = open(test, "w")
     except :
-        print("\nOutput directory %s is not writeable" %output_dir)
-        print("Please change directory or specify an output directory using -o /path/to/dir\n")
+        print "\nOutput directory %s is not writeable" %output_dir
+        print "Please change directory or specify an output directory using -o /path/to/dir\n"
         sys.exit(1)
     #remove temp file
     os.remove(test)
@@ -485,7 +485,7 @@ def readLASWaves(headdata,filename,output_dir,user_limits,plottoscreen=False,plo
         record = lasfile.read(public_header_length)
     except:
         tb = sys.exc_info()[2]
-        print("Reading failed on input LAS file " + filename + "\n")
+        print "Reading failed on input LAS file " + filename + "\n"
         sys.exit(1)
     #end try
 
@@ -511,7 +511,7 @@ def readLASWaves(headdata,filename,output_dir,user_limits,plottoscreen=False,plo
             v_record = lasfile.read(VbleRec_header_length)
         except:
             tb = sys.exc_info()[2]
-            raise IOError("Reading failed on input LAS file while reading Vble length record " + filename).with_traceback(tb)
+            raise IOError, "Reading failed on input LAS file while reading Vble length record " + filename, tb
         #end try
 
         headdata_rec = struct.unpack(VbleRec_head_format, v_record)
@@ -627,8 +627,8 @@ def readLASWaves(headdata,filename,output_dir,user_limits,plottoscreen=False,plo
     lasfile.seek(Offset_points)
     count =0
     c_point=[0,0]
-    print("Starting to process %d points" %N_points)
-    print("Will output ASCII files to ", output_dir)
+    print "Starting to process %d points" %N_points
+    print "Will output ASCII files to ", output_dir
 
     for p in range(N_points):
         Point = lasfile.read(Size_points)
@@ -643,7 +643,7 @@ def readLASWaves(headdata,filename,output_dir,user_limits,plottoscreen=False,plo
         if  min_east<c_point[0]<max_east and min_north<c_point[1]< max_north:
             wave_desc = point_info[11]
 
-            if wave_desc != 0: # if there is waveform asociated to this point
+            if wave_desc <> 0: # if there is waveform asociated to this point
                 wavedata = []
                 wavedata.append(point_info)
                 wave_offset = Offset_EVLRH + point_info[12]
@@ -671,10 +671,10 @@ def readLASWaves(headdata,filename,output_dir,user_limits,plottoscreen=False,plo
         pdfplots.close()
 
     if count==0:
-        print("\nNo wave forms have been found for the specified area")
-        print("Please check your data and try again\n")
+        print "\nNo wave forms have been found for the specified area"
+        print "Please check your data and try again\n"
     else:
-        print("Number of extracted waves:", count)
+        print "Number of extracted waves:", count
 
     #end if
 

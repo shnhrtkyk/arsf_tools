@@ -50,7 +50,7 @@ def assign_from_image(in_image, in_basefile):
     * in_basefile - Input image to copy projection information from
 
     """
-    print(('Copying projection from {} to {}'.format(in_basefile, in_image)))
+    print('Copying projection from {} to {}'.format(in_basefile, in_image))
     # Open the image file, in update mode
     # so that the image can be edited.
     baseDS = gdal.Open(in_basefile, gdal.GA_ReadOnly)
@@ -75,7 +75,7 @@ def assign_from_wkt(in_image, in_wkt_file):
     * in_wkt_file - Input WKT file
 
     """
-    print(('Adding projection from {} to {}'.format(in_wkt_file, in_image)))
+    print('Adding projection from {} to {}'.format(in_wkt_file, in_image))
 
     # Read WKT file to a string
     in_wkt_handler = open(in_wkt_file,'r')
@@ -104,7 +104,7 @@ def assign_from_proj4(in_image, in_proj4):
     * in_proj4 - Proj4 string
 
     """
-    print(('Adding projection {} to {}'.format(in_proj4, in_image)))
+    print('Adding projection {} to {}'.format(in_proj4, in_image))
 
     # Check if Proj4 string is within quotes
     # remove if so.
@@ -150,7 +150,7 @@ def assign_from_epsg_code(in_image, epsg_code):
     else:
         raise Exception('Did not understand input format, expected string or integer')
 
-    print(('Adding projection from EPSG code {} to {}'.format(epsg_code, in_image)))
+    print('Adding projection from EPSG code {} to {}'.format(epsg_code, in_image))
 
     spatial_ref = osr.SpatialReference()
     osr_out = spatial_ref.ImportFromEPSG(epsg_code_int)
